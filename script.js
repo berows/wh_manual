@@ -6,13 +6,11 @@ const PAGE_MAP = {
   's1-1':  'contents/preparation/components.html',
   's1-2':  'contents/preparation/parts.html',
   's1-3':  'contents/preparation/wearing.html',
-  's2-1':  'contents/basics/power-pairing.html',
+  's2-1':  'contents/basics/power.html',
   's2-2':  'contents/basics/controls.html',
-  's2-3':  'contents/basics/charging.html',
   's2-4':  'contents/basics/led.html',
   's3-1':  'contents/features/audio.html',
   's3-2':  'contents/features/app.html',
-  's3-3':  'contents/features/multipoint.html',
   's4-1':  'contents/troubleshooting/faq.html',
   's4-2':  'contents/troubleshooting/symptoms.html',
   's4-3':  'contents/troubleshooting/reset.html',
@@ -24,16 +22,14 @@ const PAGE_MAP = {
 // ===== SEARCH INDEX =====
 const SEARCH_INDEX = [
   { page: 'home',  title: '홈 / 빠른 시작',              section: '홈',          keywords: ['홈', '빠른시작'] },
-  { page: 's1-1',  title: '구성품 확인',                   section: '제품 소개',    keywords: ['구성품', '박스', '이어팁', '충전 케이블'] },
+  { page: 's1-1',  title: '구성품 확인',                   section: '제품 소개',    keywords: ['구성품', '박스', '이어팁'] },
   { page: 's1-2',  title: '각 부의 명칭 및 기능',           section: '제품 소개',    keywords: ['명칭', '기능', '부위', '전원 버튼', '볼륨', '마이크'] },
   { page: 's1-3',  title: '착용 및 연결 방법',              section: '제품 소개',    keywords: ['착용', '연결', '착용법'] },
-  { page: 's2-1',  title: '전원 On/Off 및 페어링',          section: '기본 사용법',  keywords: ['전원', '켜기', '끄기', '페어링', '블루투스', 'pairing'] },
+  { page: 's2-1',  title: '전원 On/Off',                   section: '기본 사용법',  keywords: ['전원', '켜기', '끄기'] },
   { page: 's2-2',  title: '조작부 사용법',                  section: '기본 사용법',  keywords: ['버튼', '조작', '컨트롤', '클릭', '재생', '볼륨'] },
-  { page: 's2-3',  title: '충전 및 배터리 상태',            section: '기본 사용법',  keywords: ['충전', '배터리', 'usb-c'] },
   { page: 's2-4',  title: 'LED 상태 표시등 안내',           section: '기본 사용법',  keywords: ['LED', '표시등', '파란색', '빨간색', '흰색', '점멸'] },
   { page: 's3-1',  title: '음성/음향 설정',                 section: '주요 기능',    keywords: ['음성', '음향', '이퀄라이저', 'EQ', 'ANC'] },
   { page: 's3-2',  title: '전용 앱 연동 및 활용',           section: '주요 기능',    keywords: ['앱', 'app', '다운로드', '설치'] },
-  { page: 's3-3',  title: '다중 기기 연결 (Multi-point)',   section: '주요 기능',    keywords: ['다중', '멀티포인트', 'multipoint', '기기 연결'] },
   { page: 's4-1',  title: '자주 묻는 질문 (FAQ)',           section: '문제 해결',    keywords: ['FAQ', '자주 묻는', '질문'] },
   { page: 's4-2',  title: '증상별 해결 가이드',             section: '문제 해결',    keywords: ['증상', '해결', '연결 끊김', '소리 없음', 'troubleshooting'] },
   { page: 's4-3',  title: '초기화(Reset) 방법',             section: '문제 해결',    keywords: ['초기화', 'reset', '리셋', '공장 초기화'] },
@@ -48,13 +44,11 @@ const BREADCRUMBS = {
   's1-1':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '구성품 확인' }],
   's1-2':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '각 부의 명칭' }],
   's1-3':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '착용 및 연결' }],
-  's2-1':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '전원 On/Off 및 페어링' }],
+  's2-1':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '전원 On/Off' }],
   's2-2':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '조작부 사용법' }],
-  's2-3':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '충전 및 배터리' }],
   's2-4':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: 'LED 표시등' }],
   's3-1':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '음성/음향 설정' }],
   's3-2':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '전용 앱 연동' }],
-  's3-3':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '다중 기기 연결' }],
   's4-1':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: 'FAQ' }],
   's4-2':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: '증상별 해결' }],
   's4-3':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: '초기화(Reset)' }],
@@ -65,8 +59,8 @@ const BREADCRUMBS = {
 
 const PAGE_SECTION_MAP = {
   's1-1': 's1', 's1-2': 's1', 's1-3': 's1',
-  's2-1': 's2', 's2-2': 's2', 's2-3': 's2', 's2-4': 's2',
-  's3-1': 's3', 's3-2': 's3', 's3-3': 's3',
+  's2-1': 's2', 's2-2': 's2', 's2-4': 's2',
+  's3-1': 's3', 's3-2': 's3',
   's4-1': 's4', 's4-2': 's4', 's4-3': 's4',
   's5-1': 's5', 's5-2': 's5', 's5-3': 's5',
 };
@@ -103,7 +97,7 @@ const CURRENT_PAGE = (() => {
           <span class="logo-sub">온라인 매뉴얼</span>
         </a>
         <div class="header-search">
-          <input type="text" id="searchInput" placeholder="매뉴얼 검색 (예: 페어링, 충전, 초기화…)" autocomplete="off" />
+          <input type="text" id="searchInput" placeholder="매뉴얼 검색 (예: LED, 초기화, 조작…)" autocomplete="off" />
           <button class="search-btn" aria-label="검색">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </button>
@@ -130,9 +124,8 @@ const CURRENT_PAGE = (() => {
             <li class="nav-item has-children" data-section="s2">
               <a href="#" class="nav-link nav-top">기본 사용법<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
-                <li><a href="#" class="nav-link" data-page="s2-1">전원 On/Off 및 페어링</a></li>
+                <li><a href="#" class="nav-link" data-page="s2-1">전원 On/Off</a></li>
                 <li><a href="#" class="nav-link" data-page="s2-2">조작부 사용법</a></li>
-                <li><a href="#" class="nav-link" data-page="s2-3">충전 및 배터리 상태</a></li>
                 <li><a href="#" class="nav-link" data-page="s2-4">LED 상태 표시등 안내</a></li>
               </ul>
             </li>
@@ -141,7 +134,6 @@ const CURRENT_PAGE = (() => {
               <ul class="nav-sub">
                 <li><a href="#" class="nav-link" data-page="s3-1">음성/음향 설정</a></li>
                 <li><a href="#" class="nav-link" data-page="s3-2">전용 앱 연동 및 활용</a></li>
-                <li><a href="#" class="nav-link" data-page="s3-3">다중 기기 연결</a></li>
               </ul>
             </li>
             <li class="nav-item has-children" data-section="s4">
@@ -173,12 +165,12 @@ const CURRENT_PAGE = (() => {
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-links">
+          <a href="https://www.audiso.co.kr" target="_blank" rel="noopener"><img src="${BASE}images/audiso_logo_h.svg" alt="Audiso" class="footer-logo" /></a>
           <a href="#">이용약관</a>
           <a href="#">개인정보처리방침</a>
           <a href="#" data-page="s5-3">고객 지원</a>
-          <a href="#">오디에스오 공식 홈페이지</a>
         </div>
-        <p class="footer-copy">© 2025 AUDISO Co., Ltd. All rights reserved.</p>
+        <p class="footer-copy">©2026 Audiso Co., Ltd. All rights reserved.</p>
       </div>
     </footer>`;
 })();
@@ -240,9 +232,6 @@ document.addEventListener('click', (e) => {
     }
     return;
   }
-
-  const hotspot = e.target.closest('.vi-hotspot');
-  if (hotspot) { navigateTo(hotspot.dataset.target); return; }
 
   const tab = e.target.closest('.tab');
   if (tab) {
