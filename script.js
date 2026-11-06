@@ -22,13 +22,13 @@ const PAGE_MAP = {
 // ===== SEARCH INDEX =====
 const SEARCH_INDEX = [
   { page: 'home',  title: '홈 / 빠른 시작',              section: '홈',          keywords: ['홈', '빠른시작'] },
-  { page: 's1-1',  title: '구성품 확인',                   section: '제품 소개',    keywords: ['구성품', '박스', '이어팁'] },
+  { page: 's1-1',  title: '구성품',                   section: '제품 소개',    keywords: ['구성품', '박스', '이어팁'] },
   { page: 's1-2',  title: '각 부의 명칭 및 기능',           section: '제품 소개',    keywords: ['명칭', '기능', '부위', '전원 버튼', '볼륨', '마이크'] },
-  { page: 's1-3',  title: '착용 및 연결 방법',              section: '제품 소개',    keywords: ['착용', '연결', '착용법'] },
+  { page: 's1-3',  title: '키오스크 설치순서',              section: '제품 소개',    keywords: ['설치', '키오스크', '설치순서'] },
   { page: 's2-1',  title: '전원 On/Off',                   section: '기본 사용법',  keywords: ['전원', '켜기', '끄기'] },
-  { page: 's2-2',  title: '조작부 사용법',                  section: '기본 사용법',  keywords: ['버튼', '조작', '컨트롤', '클릭', '재생', '볼륨'] },
-  { page: 's2-4',  title: 'LED 상태 표시등 안내',           section: '기본 사용법',  keywords: ['LED', '표시등', '파란색', '빨간색', '흰색', '점멸'] },
-  { page: 's3-1',  title: '음성/음향 설정',                 section: '주요 기능',    keywords: ['음성', '음향', '이퀄라이저', 'EQ', 'ANC'] },
+  { page: 's2-2',  title: '사용전 기본 확인 사항',                  section: '기본 사용법',  keywords: ['확인', '전원', '프린터', '헤드폰', '인터넷', '음향', '볼륨'] },
+  { page: 's2-4',  title: '사용시 주의사항',           section: '기본 사용법',  keywords: ['주의사항', '소독', '전문의', '보호자'] },
+  { page: 's3-1',  title: '자동 청력 검사',                 section: '주요 기능',    keywords: ['청력검사', '검사', 'WithHear', '앱', '프린트', '이경'] },
   { page: 's3-2',  title: '전용 앱 연동 및 활용',           section: '주요 기능',    keywords: ['앱', 'app', '다운로드', '설치'] },
   { page: 's4-1',  title: '자주 묻는 질문 (FAQ)',           section: '문제 해결',    keywords: ['FAQ', '자주 묻는', '질문'] },
   { page: 's4-2',  title: '증상별 해결 가이드',             section: '문제 해결',    keywords: ['증상', '해결', '연결 끊김', '소리 없음', 'troubleshooting'] },
@@ -41,13 +41,13 @@ const SEARCH_INDEX = [
 // ===== BREADCRUMB MAP =====
 const BREADCRUMBS = {
   'home':  [{ label: '홈' }],
-  's1-1':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '구성품 확인' }],
+  's1-1':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '구성품' }],
   's1-2':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '각 부의 명칭' }],
-  's1-3':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '착용 및 연결' }],
+  's1-3':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '키오스크 설치순서' }],
   's2-1':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '전원 On/Off' }],
-  's2-2':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '조작부 사용법' }],
-  's2-4':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: 'LED 표시등' }],
-  's3-1':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '음성/음향 설정' }],
+  's2-2':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '사용전 기본 확인 사항' }],
+  's2-4':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '사용시 주의사항' }],
+  's3-1':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '자동 청력 검사' }],
   's3-2':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '전용 앱 연동' }],
   's4-1':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: 'FAQ' }],
   's4-2':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: '증상별 해결' }],
@@ -114,25 +114,25 @@ const CURRENT_PAGE = (() => {
               <a href="#" class="nav-link nav-top" data-page="home">홈 / 빠른 시작</a>
             </li>
             <li class="nav-item has-children" data-section="s1">
-              <a href="#" class="nav-link nav-top">제품 소개 및 준비하기<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
+              <a href="#" class="nav-link nav-top">제품 준비<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
-                <li><a href="#" class="nav-link" data-page="s1-1">구성품 확인</a></li>
+                <li><a href="#" class="nav-link" data-page="s1-1">구성품</a></li>
                 <li><a href="#" class="nav-link" data-page="s1-2">각 부의 명칭 및 기능</a></li>
-                <li><a href="#" class="nav-link" data-page="s1-3">착용 및 연결 방법</a></li>
+                <li><a href="#" class="nav-link" data-page="s1-3">키오스크 설치순서</a></li>
               </ul>
             </li>
             <li class="nav-item has-children" data-section="s2">
               <a href="#" class="nav-link nav-top">기본 사용법<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
                 <li><a href="#" class="nav-link" data-page="s2-1">전원 On/Off</a></li>
-                <li><a href="#" class="nav-link" data-page="s2-2">조작부 사용법</a></li>
-                <li><a href="#" class="nav-link" data-page="s2-4">LED 상태 표시등 안내</a></li>
+                <li><a href="#" class="nav-link" data-page="s2-2">사용전 기본 확인 사항</a></li>
+                <li><a href="#" class="nav-link" data-page="s2-4">사용시 주의사항</a></li>
               </ul>
             </li>
             <li class="nav-item has-children" data-section="s3">
               <a href="#" class="nav-link nav-top">주요 기능 활용<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
-                <li><a href="#" class="nav-link" data-page="s3-1">음성/음향 설정</a></li>
+                <li><a href="#" class="nav-link" data-page="s3-1">자동 청력 검사</a></li>
                 <li><a href="#" class="nav-link" data-page="s3-2">전용 앱 연동 및 활용</a></li>
               </ul>
             </li>
@@ -159,6 +159,7 @@ const CURRENT_PAGE = (() => {
       <main class="main-content" id="mainContent">
         <nav class="breadcrumb" id="breadcrumb" aria-label="현재 위치"></nav>
         <div id="pageContent">${contentHtml}</div>
+        <p class="last-modified">최종수정.2026-11-06</p>
       </main>
     </div>
 
