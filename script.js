@@ -97,7 +97,7 @@ const CURRENT_PAGE = (() => {
           <span class="logo-sub">온라인 매뉴얼</span>
         </a>
         <div class="header-search">
-          <input type="text" id="searchInput" placeholder="매뉴얼 검색 (예: LED, 초기화, 조작…)" autocomplete="off" />
+          <input type="text" id="searchInput" placeholder="매뉴얼 검색 (예: 기능, 초기화, 조작…)" autocomplete="off" />
           <button class="search-btn" aria-label="검색">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </button>
@@ -193,6 +193,8 @@ function navigateTo(page) {
 }
 
 function updateBreadcrumb(page) {
+  if (page === 'home') { breadcrumb.innerHTML = ''; breadcrumb.style.display = 'none'; return; }
+  breadcrumb.style.display = '';
   const crumbs = BREADCRUMBS[page] || [{ label: '홈' }];
   breadcrumb.innerHTML = crumbs.map((c, i) => {
     if (i < crumbs.length - 1 && c.page)
