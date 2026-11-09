@@ -304,14 +304,6 @@ img { max-width: 100%; }
   background: radial-gradient(circle at 80% 50%, hsla(var(--hue),85%,60%,.08), transparent 60%);
   pointer-events: none;
 }
-.hero-eyebrow {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: var(--c-accent);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
 .hero h1 {
   font-size: 28px;
   font-weight: 800;
