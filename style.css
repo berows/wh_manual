@@ -288,25 +288,14 @@ img { max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: 40px 48px;
-  background: linear-gradient(135deg, var(--c-accent-subtle) 0%, var(--c-bg) 60%);
-  border: 1px solid var(--c-border);
-  border-radius: 16px;
-  margin-bottom: 48px;
+  gap: 24px;
+  margin-bottom: 40px;
   overflow: hidden;
   position: relative;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 80% 50%, hsla(var(--hue),85%,60%,.08), transparent 60%);
-  pointer-events: none;
-}
 .hero h1 {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 34px;
+  font-weight: 1000;
   color: var(--c-text);
   line-height: 1.2;
   margin-bottom: 12px;
@@ -320,14 +309,14 @@ img { max-width: 100%; }
   flex-shrink: 0;
 }
 .hero-device-img {
-  width: 180px;
+  width: 290px;
   height: auto;
   object-fit: contain;
 }
 
 .section-title {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   color: var(--c-text);
   margin-bottom: 6px;
 }
@@ -377,7 +366,7 @@ img { max-width: 100%; }
   flex: 1;
   min-width: 0;
 }
-.card-text strong { display: block; font-size: 13.5px; font-weight: 600; }
+.card-text strong { display: block; font-size: 16px; font-weight: 800; color: var(--c-text-2) }
 .card-text span { display: block; font-size: 12px; color: var(--c-text-3); margin-top: 2px; }
 .card-arrow { color: var(--c-text-3); flex-shrink: 0; }
 .quick-card:hover .card-arrow { color: var(--c-accent); }
@@ -438,8 +427,6 @@ img { max-width: 100%; }
 .flowchart-img-wrap {
   margin-top: 32px;
   width: 100%;
-  background: var(--c-bg-2);
-  border: 1px solid var(--c-border);
   border-radius: var(--radius);
   overflow: hidden;
   min-height: 200px;
@@ -491,6 +478,32 @@ img { max-width: 100%; }
   font-weight: 600;
   color: var(--c-text);
   text-align: center;
+}
+.component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.component-list .component-item {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--c-bg-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+.component-list .component-img-wrap {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background: var(--c-surface);
+}
+.component-list .component-name {
+  text-align: left;
+  font-size: 14px;
 }
 .app-card-list {
   display: flex;
@@ -548,7 +561,7 @@ img { max-width: 100%; }
 }
 .step {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   padding-bottom: 28px;
   position: relative;
 }
@@ -571,6 +584,12 @@ img { max-width: 100%; }
 .step-body { flex: 1; padding-top: 8px; }
 .step-body h3 { font-size: 14px; font-weight: 700; color: var(--c-text); margin-bottom: 6px; }
 .step-body p { font-size: 13.5px; color: var(--c-text-2); }
+.steps.no-line::before { display: none; }
+.steps.no-line .step { align-items: center; }
+.steps.no-line .step-body { padding-top: 0; }
+.steps.no-line .step-body h3 { margin-bottom: 0; }
+.steps.horizontal { flex-direction: row; flex-wrap: wrap; gap: 25px; }
+.steps.horizontal .step { padding-bottom: 0; }
 
 /* ===== TABS ===== */
 .tab-container { margin: 24px 0; }
@@ -709,7 +728,7 @@ img { max-width: 100%; }
   padding: 10px 14px;
   background: var(--c-bg-2);
   border-radius: var(--radius-sm);
-  font-size: 13.5px;
+  font-size: 15px;
 }
 .item-list li::before {
   content: '✓';
@@ -783,7 +802,7 @@ img { max-width: 100%; }
   max-width: 860px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 .footer-links {
   display: flex;
@@ -795,7 +814,7 @@ img { max-width: 100%; }
   color: var(--c-text-3);
 }
 .footer-links a:hover { color: var(--c-accent); }
-.footer-logo { height: 24px; width: auto; }
+.footer-logo { height: 36px; width: auto; }
 .footer-copy { font-size: 12px; color: var(--c-text-3); }
 .last-modified { font-size: 11px; color: var(--c-text-3); text-align: right; margin-top: 32px; }
 
@@ -829,8 +848,9 @@ img { max-width: 100%; }
   }
   .site-footer { margin-left: 0; }
 
-  .hero { padding: 28px 24px; }
-  .hero-device { display: none; }
+  .hero { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+  .hero-device { width: 100%; display: flex; justify-content: center; }
+  .hero-device-img { width: 280px; }
   .hero h1 { font-size: 22px; }
 
 }

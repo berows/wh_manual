@@ -3,16 +3,15 @@
 // ===== PAGE → FILE MAP =====
 const PAGE_MAP = {
   'home':  'index.html',
-  's1-1':  'contents/preparation/components.html',
-  's1-2':  'contents/preparation/parts.html',
+  's1-1':  'contents/preparation/parts.html',
+  's1-2':  'contents/preparation/components.html',
   's1-3':  'contents/preparation/wearing.html',
   's2-1':  'contents/basics/power.html',
   's2-2':  'contents/basics/controls.html',
-  's2-4':  'contents/basics/led.html',
+  's2-4':  'contents/basics/caution.html',
   's3-1':  'contents/features/audio.html',
   's3-2':  'contents/features/app.html',
   's4-1':  'contents/troubleshooting/faq.html',
-  's4-2':  'contents/troubleshooting/symptoms.html',
   's4-3':  'contents/troubleshooting/reset.html',
   's5-1':  'contents/cs/specs.html',
   's5-2':  'contents/cs/safety.html',
@@ -22,46 +21,44 @@ const PAGE_MAP = {
 // ===== SEARCH INDEX =====
 const SEARCH_INDEX = [
   { page: 'home',  title: '홈 / 빠른 시작',              section: '홈',          keywords: ['홈', '빠른시작'] },
-  { page: 's1-1',  title: '구성품',                   section: '제품 소개',    keywords: ['구성품', '박스', '이어팁'] },
+  { page: 's1-1',  title: '주요 구성품',                section: '제품 소개',    keywords: ['구성품', '박스', '이어팁'] },
   { page: 's1-2',  title: '각 부의 명칭 및 기능',           section: '제품 소개',    keywords: ['명칭', '기능', '부위', '전원 버튼', '볼륨', '마이크'] },
-  { page: 's1-3',  title: '키오스크 설치순서',              section: '제품 소개',    keywords: ['설치', '키오스크', '설치순서'] },
+  { page: 's1-3',  title: '키오스크 설치',              section: '제품 소개',    keywords: ['설치', '키오스크', '설치순서'] },
   { page: 's2-1',  title: '전원 On/Off',                   section: '기본 사용법',  keywords: ['전원', '켜기', '끄기'] },
   { page: 's2-2',  title: '사용전 기본 확인 사항',                  section: '기본 사용법',  keywords: ['확인', '전원', '프린터', '헤드폰', '인터넷', '음향', '볼륨'] },
   { page: 's2-4',  title: '사용시 주의사항',           section: '기본 사용법',  keywords: ['주의사항', '소독', '전문의', '보호자'] },
   { page: 's3-1',  title: '자동 청력 검사',                 section: '주요 기능',    keywords: ['청력검사', '검사', 'WithHear', '앱', '프린트', '이경'] },
   { page: 's3-2',  title: '전용 앱 연동 및 활용',           section: '주요 기능',    keywords: ['앱', 'app', '다운로드', '설치'] },
   { page: 's4-1',  title: '자주 묻는 질문 (FAQ)',           section: '문제 해결',    keywords: ['FAQ', '자주 묻는', '질문'] },
-  { page: 's4-2',  title: '증상별 해결 가이드',             section: '문제 해결',    keywords: ['증상', '해결', '연결 끊김', '소리 없음', 'troubleshooting'] },
   { page: 's4-3',  title: '초기화(Reset) 방법',             section: '문제 해결',    keywords: ['초기화', 'reset', '리셋', '공장 초기화'] },
   { page: 's5-1',  title: '상세 제품 제원',                 section: '제품 사양',    keywords: ['제원', '스펙', 'spec', '방수', 'IPX4', '재생 시간'] },
   { page: 's5-2',  title: '안전 주의사항 및 규격',          section: '제품 사양',    keywords: ['안전', '주의사항', '청력', '규격'] },
-  { page: 's5-3',  title: 'A/S 및 고객센터 안내',          section: '제품 사양',    keywords: ['AS', 'A/S', '고객센터', '전화', '이메일', '수리'] },
+  { page: 's5-3',  title: '고객센터',                      section: '제품 사양',    keywords: ['AS', 'A/S', '고객센터', '전화', '이메일', '수리'] },
 ];
 
 // ===== BREADCRUMB MAP =====
 const BREADCRUMBS = {
   'home':  [{ label: '홈' }],
-  's1-1':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '구성품' }],
+  's1-1':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '주요 구성품' }],
   's1-2':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '각 부의 명칭' }],
-  's1-3':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '키오스크 설치순서' }],
+  's1-3':  [{ label: '홈', page: 'home' }, { label: '제품 소개', page: 's1-1' }, { label: '키오스크 설치' }],
   's2-1':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '전원 On/Off' }],
   's2-2':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '사용전 기본 확인 사항' }],
   's2-4':  [{ label: '홈', page: 'home' }, { label: '기본 사용법', page: 's2-1' }, { label: '사용시 주의사항' }],
   's3-1':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '자동 청력 검사' }],
   's3-2':  [{ label: '홈', page: 'home' }, { label: '주요 기능', page: 's3-1' }, { label: '전용 앱 연동' }],
   's4-1':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: 'FAQ' }],
-  's4-2':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: '증상별 해결' }],
   's4-3':  [{ label: '홈', page: 'home' }, { label: '문제 해결', page: 's4-1' }, { label: '초기화(Reset)' }],
   's5-1':  [{ label: '홈', page: 'home' }, { label: '제품 사양', page: 's5-1' }, { label: '상세 제원' }],
   's5-2':  [{ label: '홈', page: 'home' }, { label: '제품 사양', page: 's5-1' }, { label: '안전 주의사항' }],
-  's5-3':  [{ label: '홈', page: 'home' }, { label: '제품 사양', page: 's5-1' }, { label: 'A/S 및 고객센터' }],
+  's5-3':  [{ label: '홈', page: 'home' }, { label: '제품 사양', page: 's5-1' }, { label: '고객센터' }],
 };
 
 const PAGE_SECTION_MAP = {
   's1-1': 's1', 's1-2': 's1', 's1-3': 's1',
   's2-1': 's2', 's2-2': 's2', 's2-4': 's2',
   's3-1': 's3', 's3-2': 's3',
-  's4-1': 's4', 's4-2': 's4', 's4-3': 's4',
+  's4-1': 's4', 's4-3': 's4',
   's5-1': 's5', 's5-2': 's5', 's5-3': 's5',
 };
 
@@ -116,9 +113,9 @@ const CURRENT_PAGE = (() => {
             <li class="nav-item has-children" data-section="s1">
               <a href="#" class="nav-link nav-top">제품 준비<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
-                <li><a href="#" class="nav-link" data-page="s1-1">구성품</a></li>
+                <li><a href="#" class="nav-link" data-page="s1-1">주요 구성품</a></li>
                 <li><a href="#" class="nav-link" data-page="s1-2">각 부의 명칭 및 기능</a></li>
-                <li><a href="#" class="nav-link" data-page="s1-3">키오스크 설치순서</a></li>
+                <li><a href="#" class="nav-link" data-page="s1-3">키오스크 설치</a></li>
               </ul>
             </li>
             <li class="nav-item has-children" data-section="s2">
@@ -140,7 +137,6 @@ const CURRENT_PAGE = (() => {
               <a href="#" class="nav-link nav-top">문제 해결<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></a>
               <ul class="nav-sub">
                 <li><a href="#" class="nav-link" data-page="s4-1">자주 묻는 질문 (FAQ)</a></li>
-                <li><a href="#" class="nav-link" data-page="s4-2">증상별 해결 가이드</a></li>
                 <li><a href="#" class="nav-link" data-page="s4-3">초기화(Reset) 방법</a></li>
               </ul>
             </li>
@@ -149,7 +145,7 @@ const CURRENT_PAGE = (() => {
               <ul class="nav-sub">
                 <li><a href="#" class="nav-link" data-page="s5-1">상세 제품 제원</a></li>
                 <li><a href="#" class="nav-link" data-page="s5-2">안전 주의사항 및 규격</a></li>
-                <li><a href="#" class="nav-link" data-page="s5-3">A/S 및 고객센터</a></li>
+                <li><a href="#" class="nav-link" data-page="s5-3">고객센터</a></li>
               </ul>
             </li>
           </ul>
@@ -167,9 +163,6 @@ const CURRENT_PAGE = (() => {
       <div class="footer-inner">
         <div class="footer-links">
           <a href="https://www.audiso.co.kr" target="_blank" rel="noopener"><img src="${BASE}images/audiso_logo_h.svg" alt="Audiso" class="footer-logo" /></a>
-          <a href="#">이용약관</a>
-          <a href="#">개인정보처리방침</a>
-          <a href="#" data-page="s5-3">고객 지원</a>
         </div>
         <p class="footer-copy">©2026 Audiso Co., Ltd. All rights reserved.</p>
       </div>
