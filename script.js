@@ -155,7 +155,7 @@ const CURRENT_PAGE = (() => {
       <main class="main-content" id="mainContent">
         <nav class="breadcrumb" id="breadcrumb" aria-label="현재 위치"></nav>
         <div id="pageContent">${contentHtml}</div>
-        <p class="last-modified">최종수정.2026-11-06</p>
+        <p class="last-modified">최종수정.2026-11-12</p>
       </main>
     </div>
 
@@ -255,11 +255,21 @@ backdrop.addEventListener('click', closeMobileNav);
 
 // ===== SEARCH =====
 function doSearch(q) {
-  const lq = q.toLowerCase();
-  return SEARCH_INDEX.filter(item =>
-    item.title.toLowerCase().includes(lq) ||
-    item.keywords.some(k => k.toLowerCase().includes(lq))
-  ).slice(0, 8);
+  const lq = q.toLowerCase().trim();
+  if (!lq) return [];
+  return SEARCH_INDEX.map(item => {
+    const tl = item.title.toLowerCase();
+    let score = 0;
+    if (tl === lq) score = 100;
+    else if (tl.startsWith(lq)) score = 80;
+    else if (tl.includes(lq)) score = 60;
+    const matchedKw = item.keywords.find(k => k.toLowerCase().includes(lq));
+    if (matchedKw && score < 40) score = 40;
+    if (item.section.toLowerCase().includes(lq) && score < 20) score = 20;
+    return { ...item, score, matchedKw: score < 60 ? matchedKw : null };
+  }).filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 8);
 }
 function hl(text, q) {
   return text.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
@@ -268,16 +278,17 @@ function renderDropdown(results, q) {
   if (!results.length) {
     searchDrop.innerHTML = '<div class="search-result-item" style="color:var(--c-text-3)">검색 결과가 없습니다.</div>';
   } else {
-    searchDrop.innerHTML = results.map(r =>
-      `<div class="search-result-item" data-page="${r.page}"><span>${hl(r.title,q)}</span><span class="sri-section">${r.section}</span></div>`
-    ).join('');
+    searchDrop.innerHTML = results.map(r => {
+      const sub = r.matchedKw ? `<span class="sri-kw">${hl(r.matchedKw, q)}</span>` : '';
+      return `<div class="search-result-item" data-page="${r.page}">${sub}<span class="sri-title">${hl(r.title, q)}</span><span class="sri-section">${r.section}</span></div>`;
+    }).join('');
     searchDrop.querySelectorAll('[data-page]').forEach(el =>
       el.addEventListener('click', () => { navigateTo(el.dataset.page); closeSearch(); })
     );
   }
   searchDrop.classList.add('open');
 }
-function closeSearch() { searchDrop.classList.remove('open'); searchDrop.innerHTML = ''; }
+function closeSearch() { searchDrop.classList.remove('open'); searchDrop.innerHTML = ''; searchInput.value = ''; }
 
 let st;
 searchInput.addEventListener('input', () => {
@@ -288,9 +299,20 @@ searchInput.addEventListener('input', () => {
 });
 searchInput.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { closeSearch(); searchInput.blur(); return; }
-  if (e.key === 'Enter') {
-    const first = searchDrop.querySelector('[data-page]');
-    if (first) { navigateTo(first.dataset.page); closeSearch(); }
+  const items = [...searchDrop.querySelectorAll('[data-page]')];
+  if (!items.length) return;
+  const cur = searchDrop.querySelector('.search-result-item.focused');
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    const next = cur ? (items[items.indexOf(cur) + 1] || items[0]) : items[0];
+    cur?.classList.remove('focused'); next.classList.add('focused');
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    const prev = cur ? (items[items.indexOf(cur) - 1] || items[items.length - 1]) : items[items.length - 1];
+    cur?.classList.remove('focused'); prev.classList.add('focused');
+  } else if (e.key === 'Enter') {
+    const target = cur || items[0];
+    if (target) { navigateTo(target.dataset.page); closeSearch(); }
   }
 });
 
