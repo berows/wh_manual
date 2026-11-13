@@ -204,12 +204,6 @@ const CURRENT_PAGE = (() => {
   document.getElementById('printAll').addEventListener('click', async () => {
     closePopup();
 
-    // 팝업 차단 방지: 클릭 동기 컨텍스트에서 창을 먼저 열기
-    const win = window.open('', '_blank', 'width=900,height=700');
-    if (!win) { alert('팝업이 차단되어 있습니다. 팝업을 허용 후 다시 시도해 주세요.'); return; }
-    win.document.write('<html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0"><p style="color:#888;font-size:14px">문서를 불러오는 중입니다…</p></body></html>');
-    win.document.close();
-
     const pages = Object.entries(PAGE_MAP).filter(([id]) => id !== 'home');
 
     const [cssText, ...results] = await Promise.all([
@@ -238,11 +232,16 @@ const CURRENT_PAGE = (() => {
       `<div class="print-section">${html}</div>`
     ).join('');
 
-    win.document.open();
-    win.document.write(`<!DOCTYPE html>
-<html lang="ko"><head>
-<meta charset="UTF-8">
-<title>WithHear 온라인 매뉴얼 - 전체</title>
+    if (!sections) { alert('페이지를 불러올 수 없습니다.'); return; }
+
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;border:none;visibility:hidden';
+    document.body.appendChild(iframe);
+
+    const idoc = iframe.contentDocument || iframe.contentWindow.document;
+    idoc.open();
+    idoc.write(`<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
 <style>${cssText}</style>
 <style>
 @page { size: A4; margin: 20mm; }
@@ -254,9 +253,13 @@ a { color: inherit !important; text-decoration: none !important; }
 .alert-box, .step-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 </style>
 </head><body>${sections}</body></html>`);
-    win.document.close();
-    win.focus();
-    setTimeout(() => win.print(), 500);
+    idoc.close();
+
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => iframe.remove(), 1000);
+    }, 500);
   });
 })();
 
