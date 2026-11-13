@@ -204,26 +204,28 @@ const CURRENT_PAGE = (() => {
   document.getElementById('printAll').addEventListener('click', async () => {
     closePopup();
     const pages = Object.entries(PAGE_MAP).filter(([id]) => id !== 'home');
-    const styleUrl = BASE + 'style.css';
 
-    const results = await Promise.all(pages.map(async ([, path]) => {
-      try {
-        const pageUrl = BASE + path;
-        const res = await fetch(pageUrl);
-        const html = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const pageBase = pageUrl.replace(/\/[^/]+$/, '/');
-        doc.querySelectorAll('#pageContent img').forEach(img => {
-          const src = img.getAttribute('src');
-          if (src && !src.startsWith('http') && !src.startsWith('data:')) {
-            img.setAttribute('src', new URL(src, pageBase).href);
-          }
-        });
-        const content = doc.getElementById('pageContent');
-        return content ? content.innerHTML : '';
-      } catch { return null; }
-    }));
+    const [cssText, ...results] = await Promise.all([
+      fetch(BASE + 'style.css').then(r => r.text()).catch(() => ''),
+      ...pages.map(async ([, path]) => {
+        try {
+          const pageUrl = BASE + path;
+          const res = await fetch(pageUrl);
+          const html = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const pageBase = pageUrl.replace(/\/[^/]+$/, '/');
+          doc.querySelectorAll('#pageContent img').forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+              img.setAttribute('src', new URL(src, pageBase).href);
+            }
+          });
+          const content = doc.getElementById('pageContent');
+          return content ? content.innerHTML : '';
+        } catch { return null; }
+      })
+    ]);
 
     const sections = results.filter(Boolean).map(html =>
       `<div class="print-section">${html}</div>`
@@ -236,7 +238,7 @@ const CURRENT_PAGE = (() => {
 <html lang="ko"><head>
 <meta charset="UTF-8">
 <title>WithHear 온라인 매뉴얼 - 전체</title>
-<link rel="stylesheet" href="${styleUrl}">
+<style>${cssText}</style>
 <style>
 @page { size: A4; margin: 20mm; }
 body { background: #fff !important; }
@@ -248,7 +250,8 @@ a { color: inherit !important; text-decoration: none !important; }
 </style>
 </head><body>${sections}</body></html>`);
     win.document.close();
-    win.addEventListener('load', () => { win.focus(); win.print(); });
+    win.focus();
+    setTimeout(() => win.print(), 500);
   });
 })();
 
