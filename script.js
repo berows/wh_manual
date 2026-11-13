@@ -168,13 +168,81 @@ const CURRENT_PAGE = (() => {
       </div>
     </footer>
 
-    <button id="printFab" class="print-fab" aria-label="PDF 출력">
-      PDF
-    </button>`;
+    <div class="print-popup" id="printPopup">
+      <button class="print-opt" id="printCurrent">현재 문서</button>
+      <button class="print-opt" id="printAll">전체 문서</button>
+    </div>
+    <button id="printFab" class="print-fab" aria-label="PDF 출력">PDF</button>`;
 })();
 
 // ===== PRINT FAB =====
-document.getElementById('printFab').addEventListener('click', () => window.print());
+(function initPrint() {
+  const fab     = document.getElementById('printFab');
+  const popup   = document.getElementById('printPopup');
+
+  function openPopup()  { popup.classList.add('open'); fab.classList.add('active'); }
+  function closePopup() { popup.classList.remove('open'); fab.classList.remove('active'); }
+
+  fab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    popup.classList.contains('open') ? closePopup() : openPopup();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!popup.contains(e.target)) closePopup();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  document.getElementById('printCurrent').addEventListener('click', () => {
+    closePopup();
+    window.print();
+  });
+
+  document.getElementById('printAll').addEventListener('click', async () => {
+    closePopup();
+    const pages = Object.entries(PAGE_MAP).filter(([id]) => id !== 'home');
+    const styleUrl = BASE + 'style.css';
+
+    const results = await Promise.all(pages.map(async ([, path]) => {
+      try {
+        const res = await fetch(BASE + path);
+        const html = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.getElementById('pageContent');
+        return content ? content.innerHTML : '';
+      } catch { return null; }
+    }));
+
+    const sections = results.filter(Boolean).map(html =>
+      `<div class="print-section">${html}</div>`
+    ).join('');
+
+    const win = window.open('', '_blank', 'width=900,height=700');
+    if (!win) { alert('팝업이 차단되어 있습니다. 팝업을 허용 후 다시 시도해 주세요.'); return; }
+
+    win.document.write(`<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<title>WithHear 온라인 매뉴얼 - 전체</title>
+<link rel="stylesheet" href="${styleUrl}">
+<style>
+@page { size: A4; margin: 20mm; }
+body { background: #fff !important; }
+.print-section { page-break-after: always; break-after: page; }
+.print-section:last-child { page-break-after: avoid; break-after: avoid; }
+img { max-width: 100% !important; height: auto !important; }
+a { color: inherit !important; text-decoration: none !important; }
+.alert-box, .step-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</head><body>${sections}</body></html>`);
+    win.document.close();
+    win.addEventListener('load', () => { win.focus(); win.print(); });
+  });
+})();
 
 // ===== DOM =====
 const lnb         = document.getElementById('lnb');

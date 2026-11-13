@@ -702,6 +702,45 @@ img { max-width: 100%; }
 .last-modified { font-size: 11px; color: var(--c-text-3); text-align: right; margin-top: 32px; }
 
 /* ===== PRINT FAB ===== */
+.print-popup {
+  position: fixed;
+  bottom: 82px;
+  right: 24px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  z-index: 199;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.print-popup.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.print-opt {
+  display: block;
+  width: 100%;
+  padding: 8px 20px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-text);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+.print-opt:hover { background: var(--c-bg-2); }
 .print-fab {
   position: fixed;
   bottom: 24px;
@@ -723,7 +762,7 @@ img { max-width: 100%; }
   z-index: 200;
   transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
 }
-.print-fab:hover {
+.print-fab:hover, .print-fab.active {
   background: var(--c-accent-hover);
   transform: scale(1.08);
   box-shadow: 0 6px 20px rgba(0,0,0,.22);
@@ -733,7 +772,7 @@ img { max-width: 100%; }
 /* ===== PRINT ===== */
 @page { size: A4; margin: 20mm; }
 @media print {
-  .site-header, .lnb, .site-footer, .breadcrumb, .print-fab { display: none !important; }
+  .site-header, .lnb, .site-footer, .breadcrumb, .print-fab, .print-popup { display: none !important; }
   .layout { display: block !important; }
   .main-content { margin-left: 0 !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
   body { background: #fff !important; }
