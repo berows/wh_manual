@@ -203,6 +203,13 @@ const CURRENT_PAGE = (() => {
 
   document.getElementById('printAll').addEventListener('click', async () => {
     closePopup();
+
+    // 팝업 차단 방지: 클릭 동기 컨텍스트에서 창을 먼저 열기
+    const win = window.open('', '_blank', 'width=900,height=700');
+    if (!win) { alert('팝업이 차단되어 있습니다. 팝업을 허용 후 다시 시도해 주세요.'); return; }
+    win.document.write('<html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0"><p style="color:#888;font-size:14px">문서를 불러오는 중입니다…</p></body></html>');
+    win.document.close();
+
     const pages = Object.entries(PAGE_MAP).filter(([id]) => id !== 'home');
 
     const [cssText, ...results] = await Promise.all([
@@ -231,9 +238,7 @@ const CURRENT_PAGE = (() => {
       `<div class="print-section">${html}</div>`
     ).join('');
 
-    const win = window.open('', '_blank', 'width=900,height=700');
-    if (!win) { alert('팝업이 차단되어 있습니다. 팝업을 허용 후 다시 시도해 주세요.'); return; }
-
+    win.document.open();
     win.document.write(`<!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8">
