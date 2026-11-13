@@ -198,6 +198,10 @@ const CURRENT_PAGE = (() => {
 
   document.getElementById('printCurrent').addEventListener('click', () => {
     closePopup();
+    const pageName = (PAGE_MAP[CURRENT_PAGE] || 'index.html').split('/').pop().replace('.html', '');
+    const original = document.title;
+    document.title = `WithHear_manual_${pageName}`;
+    window.addEventListener('afterprint', () => { document.title = original; }, { once: true });
     window.print();
   });
 
@@ -242,6 +246,7 @@ const CURRENT_PAGE = (() => {
     idoc.open();
     idoc.write(`<!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8">
+<title>WithHear_manual_all</title>
 <style>${cssText}</style>
 <style>
 @page { size: A4; margin: 20mm; }
