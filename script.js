@@ -200,7 +200,13 @@ const CURRENT_PAGE = (() => {
     closePopup();
     const original = document.title;
     document.title = 'WithHear_manual';
-    window.addEventListener('afterprint', () => { document.title = original; }, { once: true });
+    const details = Array.from(document.querySelectorAll('#pageContent details'));
+    const wasOpen = details.map(d => d.open);
+    details.forEach(d => { d.open = true; });
+    window.addEventListener('afterprint', () => {
+      document.title = original;
+      details.forEach((d, i) => { d.open = wasOpen[i]; });
+    }, { once: true });
     window.print();
   });
 
@@ -219,6 +225,7 @@ const CURRENT_PAGE = (() => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const pageBase = pageUrl.replace(/\/[^/]+$/, '/');
+          doc.querySelectorAll('#pageContent details').forEach(d => d.setAttribute('open', ''));
           doc.querySelectorAll('#pageContent img').forEach(img => {
             const src = img.getAttribute('src');
             if (src && !src.startsWith('http') && !src.startsWith('data:')) {
