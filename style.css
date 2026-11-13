@@ -550,13 +550,13 @@ img { max-width: 100%; }
   margin: 16px 0;
   border-left: 3px solid;
 }
-.alert-box svg { flex-shrink: 0; margin-top: 2px; }
+.alert-box svg, .alert-box img { flex-shrink: 0; margin-top: 2px; }
 .alert-box.info { background: var(--c-accent-subtle); border-color: var(--c-accent); color: var(--c-text); }
 .alert-box.info svg { stroke: var(--c-accent); }
 .alert-box.tip { background: #f0fdf4; border-color: var(--c-success); color: #166534; }
 .alert-box.tip svg { stroke: var(--c-success); }
 .alert-box.warning { background: #fffbeb; border-color: var(--c-warning); color: #92400e; }
-.alert-box.warning svg { stroke: var(--c-warning); }
+.alert-box.warning svg { fill: currentColor; }
 
 /* ===== ACCORDION ===== */
 .accordion-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
