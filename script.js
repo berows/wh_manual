@@ -208,10 +208,18 @@ const CURRENT_PAGE = (() => {
 
     const results = await Promise.all(pages.map(async ([, path]) => {
       try {
-        const res = await fetch(BASE + path);
+        const pageUrl = BASE + path;
+        const res = await fetch(pageUrl);
         const html = await res.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
+        const pageBase = pageUrl.replace(/\/[^/]+$/, '/');
+        doc.querySelectorAll('#pageContent img').forEach(img => {
+          const src = img.getAttribute('src');
+          if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+            img.setAttribute('src', new URL(src, pageBase).href);
+          }
+        });
         const content = doc.getElementById('pageContent');
         return content ? content.innerHTML : '';
       } catch { return null; }
